@@ -1,0 +1,50 @@
+---
+ - hosts: ok
+   tasks:
+
+    - name: COPYING HADOOP INSTALLATION MODULES
+      copy: src='/media/sf_test/hadoop-2.7.3.tar.gz' dest='/root/Desktop/Installations/'
+
+    - name: COPYING JDK INSTALLATION MODULES
+      copy: src='/media/sf_test/jdk-8u121-linux-x64.rpm' dest='/root/Desktop/Installations/'
+
+    - name: INSTALL JDK
+      yum: name='/root/Desktop/Installations/jdk-8u121-linux-x64.rpm' state='present'
+
+    - name: EXTRACTING HADOOP
+      unarchive: src='/root/Desktop/Installations/hadoop-2.7.3.tar.gz' dest='/root/Desktop/Installations/' remote_src='yes'
+
+    - name: MOVE HADOOP TO /
+      shell: mv /root/Desktop/Installations/hadoop-2.7.3/ /hadoop2
+
+    - name: COPYING .BASHRC FILE
+      copy: src='/root/.bashrc' dest='/root/.bashrc'
+
+    - name: REMOVE.BASHRC
+      shell: rm -f /root/.bashrc
+
+    - name: COPY .BASHRC
+      copy: src='/root/.bashrc' dest='/root/.bashrc'
+
+    - name: EXECUTE .BASHRC
+      shell: source /root/.bashrc
+
+    - name: DELETING SITE.XML
+      shell: rm -f /hadoop2/etc/hadoop/hdfs-site.xml	
+
+    - name: COPYING HDFS SITE FILE
+      copy: src='/hadoop2/etc/hadoop/hdfs-site.xml' dest='/hadoop2/etc/hadoop/hdfs-site.xml'
+
+    - name: DELETING CORE.XML
+      shell: rm -f /hadoop2/etc/hadoop/core-site.xml
+
+    - name: COPYING CORE SITE FILE
+      copy: src='/hadoop2/etc/hadoop/core-site.xml' dest='/hadoop2/etc/hadoop/core-site.xml'
+
+    - name: DELETING ENV FILE
+      shell: rm -f /hadoop2/etc/hadoop/hadoop-env.sh
+
+    - name: COPYING ENV FILE
+      copy: src='/hadoop2/etc/hadoop/hadoop-env.sh' dest='/hadoop2/etc/hadoop/hadoop-env.sh'
+
+   
